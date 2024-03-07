@@ -124,13 +124,12 @@ public:
         //Этот метод двигает все точки,
         //меняет глобальное время T
         //и задаёт осциллирующее поле скоростей
-        double phase = cos(osc_ratio * T / tau * M_PI);
         T += tau;
         for(unsigned int i = 0; i < nodes.size(); i++) {
             nodes[i].move(tau);
-            nodes[i].vx = omega * nodes[i].z * phase;
+            nodes[i].vx = omega * nodes[i].z * cos(osc_ratio * T / tau * M_PI);
             nodes[i].vy = pull_func(nodes[i].y) * cos(pull_ratio * T / tau * M_PI);
-            nodes[i].vz = - omega * nodes[i].x * phase;
+            nodes[i].vz = - omega * nodes[i].x * cos(osc_ratio * T / tau * M_PI);
         }
     }
 
