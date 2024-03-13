@@ -1,0 +1,11 @@
+element = FiniteElement("Lagrange", tetrahedron, 1)
+
+v  = TestFunction(element)  # Test function
+u1 = TrialFunction(element) # Value at t_n
+u0 = Coefficient(element)   # Value at t_n-1
+c  = Coefficient(element)   # Heat conductivity
+f  = Coefficient(element)   # Heat source
+dt = Constant("tetrahedron")   # Time step
+
+a = v*u1*dx + dt*c*dot(grad(v), grad(u1))*dx
+L = v*u0*dx + dt*v*f*dx
